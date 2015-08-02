@@ -14,6 +14,7 @@
 		011A9AF31AF849A400D2C1DA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011A9AF21AF849A400D2C1DA /* Images.xcassets */; };
 		011A9AF61AF849A400D2C1DA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011A9AF41AF849A400D2C1DA /* LaunchScreen.xib */; };
 		011A9B021AF849A400D2C1DA /* WhereDidMyCashGoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 011A9B011AF849A400D2C1DA /* WhereDidMyCashGoTests.m */; };
+		01CD1C7E1B0132F2001BC39D /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CD1C7D1B0132F2001BC39D /* Transaction.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		011A9AFB1AF849A400D2C1DA /* WhereDidMyCashGoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhereDidMyCashGoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		011A9B001AF849A400D2C1DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011A9B011AF849A400D2C1DA /* WhereDidMyCashGoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhereDidMyCashGoTests.m; sourceTree = "<group>"; };
+		01CD1C7C1B0132F2001BC39D /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
+		01CD1C7D1B0132F2001BC39D /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 				011A9AEA1AF849A400D2C1DA /* AppDelegate.m */,
 				011A9AEC1AF849A400D2C1DA /* ViewController.h */,
 				011A9AED1AF849A400D2C1DA /* ViewController.m */,
+				01CD1C7C1B0132F2001BC39D /* Transaction.h */,
+				01CD1C7D1B0132F2001BC39D /* Transaction.m */,
 				011A9AEF1AF849A400D2C1DA /* Main.storyboard */,
 				011A9AF21AF849A400D2C1DA /* Images.xcassets */,
 				011A9AF41AF849A400D2C1DA /* LaunchScreen.xib */,
@@ -221,6 +226,7 @@
 			files = (
 				011A9AEE1AF849A400D2C1DA /* ViewController.m in Sources */,
 				011A9AEB1AF849A400D2C1DA /* AppDelegate.m in Sources */,
+				01CD1C7E1B0132F2001BC39D /* Transaction.m in Sources */,
 				011A9AE81AF849A400D2C1DA /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +422,7 @@
 				011A9B071AF849A400D2C1DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		011A9B081AF849A400D2C1DA /* Build configuration list for PBXNativeTarget "WhereDidMyCashGoTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +431,7 @@
 				011A9B0A1AF849A400D2C1DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

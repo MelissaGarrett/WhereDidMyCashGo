@@ -10,4 +10,22 @@
 
 @implementation Transaction
 
+-(id) initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (!self)
+        return nil;
+    
+    self.purchase = [[aDecoder decodeObjectForKey:@"purchase"] copy];
+    self.cost = [aDecoder decodeObjectForKey:@"cost"];
+    
+    return self;
+}
+
+-(void) encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.purchase forKey:@"purchase"];
+    [aCoder encodeObject:self.cost forKey:@"cost"];
+}
+
 @end

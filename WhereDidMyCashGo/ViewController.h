@@ -8,8 +8,36 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) IBOutlet UILabel *lblMonthName;
+
+@property (strong, nonatomic) IBOutlet UITextField *txtDescription;
+
+@property (strong, nonatomic) IBOutlet UITextField *txtCost;
+
+@property (strong, nonatomic) IBOutlet UILabel *lblDollarSign;
+
+@property (strong, nonatomic) IBOutlet UILabel *lblCostFormat;
+
+@property (strong, nonatomic) IBOutlet UILabel *lblErrorMsg;
+
+@property (strong, nonatomic) IBOutlet UILabel *lblLastMonthTotal;
+
+@property (strong, nonatomic) IBOutlet UILabel *lblThisMonthTotal;
+
+@property (strong, nonatomic) NSMutableArray *arrayOfTransactions;
+
+@property (strong, nonatomic) NSArray *paths;
+
+@property (strong, nonatomic) NSString *documentsDirectoryPath;
+
+@property (strong, nonatomic) NSString *filePath;
+
+- (IBAction)btnEnterTransaction:(UIButton *)sender;
+- (IBAction)btnViewTransaction:(UIButton *)sender;
+- (IBAction)btnCancel:(UIButton *)sender;
+- (IBAction)btnSave:(UIButton *)sender;
 
 @end
 

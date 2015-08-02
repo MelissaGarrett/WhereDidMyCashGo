@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Transaction : NSObject
+@interface Transaction : NSObject <NSCoding>
+
+@property NSString *purchase;
+@property NSNumber *cost;
 
 @end
