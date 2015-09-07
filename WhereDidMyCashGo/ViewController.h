@@ -26,14 +26,6 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *lblThisMonthTotal;
 
-@property (strong, nonatomic) NSMutableArray *arrayOfTransactions;
-
-@property (strong, nonatomic) NSArray *paths;
-
-@property (strong, nonatomic) NSString *documentsDirectoryPath;
-
-@property (strong, nonatomic) NSString *filePath;
-
 - (IBAction)btnEnterTransaction:(UIButton *)sender;
 - (IBAction)btnViewTransaction:(UIButton *)sender;
 - (IBAction)btnCancel:(UIButton *)sender;

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -28,6 +29,22 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    NSLog(@"DidEnterBackground");
+    
+    // Save monthly totals into NSUserDefaults
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:self.currentMonth forKey:@"lastMonth"];
+    [defaults setObject:self.lastMonthTotal forKey:@"lastMonthTotal"];
+    [defaults setObject:self.currentMonthTotal forKey:@"currentMonthTotal"];
+    
+    [defaults synchronize];
+    
+    // Save transaction data into NSKeyedArchiver
+    //[NSKeyedArchiver archiveRootObject:self.arrayOfTransactions toFile:self.filePath];
+    
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
