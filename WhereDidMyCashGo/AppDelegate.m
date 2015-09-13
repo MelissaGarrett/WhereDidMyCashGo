@@ -7,14 +7,13 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "MonthlyDataManager.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -30,21 +29,26 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-    NSLog(@"DidEnterBackground");
-    
+    // Access data in Singleton (MonthlyDataManager)
+    MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
+       
     // Save monthly totals into NSUserDefaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setObject:self.currentMonth forKey:@"lastMonth"];
-    [defaults setObject:self.lastMonthTotal forKey:@"lastMonthTotal"];
-    [defaults setObject:self.currentMonthTotal forKey:@"currentMonthTotal"];
+    
+    NSString *lastMonth = [monthlyData lastMonth];
+    [defaults setObject:lastMonth forKey:@"lastMonth"];
+    
+    NSNumber *lastMonthTotal = [monthlyData lastMonthTotal];
+    [defaults setObject:lastMonthTotal forKey:@"lastMonthTotal"];
+    
+    NSNumber *currentMonthTotal = [monthlyData currentMonthTotal];
+    [defaults setObject:currentMonthTotal forKey:@"currentMonthTotal"];
     
     [defaults synchronize];
     
     // Save transaction data into NSKeyedArchiver
     //[NSKeyedArchiver archiveRootObject:self.arrayOfTransactions toFile:self.filePath];
-    
-
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

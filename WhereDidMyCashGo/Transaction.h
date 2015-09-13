@@ -10,7 +10,7 @@
 
 @interface Transaction : NSObject <NSCoding>
 
-@property NSString *purchase;
-@property NSNumber *cost;
+@property (strong, nonatomic) NSString *purchase;
+@property (strong, nonatomic) NSNumber *cost;
 
 @end

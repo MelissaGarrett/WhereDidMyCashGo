@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Transaction.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource>
+@interface ViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *lblMonthName;
 
@@ -25,6 +26,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *lblLastMonthTotal;
 
 @property (strong, nonatomic) IBOutlet UILabel *lblThisMonthTotal;
+
+@property (strong, nonatomic) Transaction *transaction;
 
 - (IBAction)btnEnterTransaction:(UIButton *)sender;
 - (IBAction)btnViewTransaction:(UIButton *)sender;
