@@ -8,6 +8,7 @@
 
 #import "TableViewController.h"
 #import "MonthlyDataManager.h"
+#import "TransactionCell.h"
 
 @interface TableViewController ()
 
@@ -43,18 +44,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    
+    // Format Cost to display decimal and comma
+    [numberFormatter setPositiveFormat:@"#####.##"];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setLocale:[NSLocale currentLocale]];
+    [numberFormatter setMinimumFractionDigits:2];
+    [numberFormatter setMaximumFractionDigits:2];
+    [numberFormatter setGroupingSeparator:[[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator]];
+    [numberFormatter setUsesGroupingSeparator:YES];
 
     static NSString *MyIdentifier = @"TransactionCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+    TransactionCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
     
     if (cell == nil) {
-      cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
+      cell = [[TransactionCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MyIdentifier];
     }
     
     Transaction *aTransaction = (Transaction *)[[monthlyData arrayOfTransactions] objectAtIndex:indexPath.row];
     
-    [[cell textLabel] setText:[NSString stringWithFormat:@"%@:  %.2f", [aTransaction purchase], [[aTransaction cost] floatValue]]];
-   
+    [[cell purchaseLabel] setText:[aTransaction purchase]];
+    
+    float currentMonthTotal = [[aTransaction cost] floatValue];
+    NSString *formattedCost = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentMonthTotal]];
+    [[cell costLabel] setTextAlignment:NSTextAlignmentRight];
+    [[cell costLabel] setText:formattedCost];
+
     return cell;
 }
 

@@ -35,7 +35,6 @@
     // Save monthly totals into NSUserDefaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    
     NSString *lastMonth = [monthlyData lastMonth];
     [defaults setObject:lastMonth forKey:@"lastMonth"];
     
@@ -47,8 +46,9 @@
     
     [defaults synchronize];
     
+    
     // Save transaction data into NSKeyedArchiver
-    //[NSKeyedArchiver archiveRootObject:self.arrayOfTransactions toFile:self.filePath];
+    [NSKeyedArchiver archiveRootObject:monthlyData.arrayOfTransactions toFile:_filePath];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

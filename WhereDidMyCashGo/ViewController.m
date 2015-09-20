@@ -25,12 +25,12 @@
     // Access data in Singleton (MonthlyDataManager)
     MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
     
-    // Setup the paths to save data entered by user
-    [delegate setPaths:NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES)];
+    // Setup the paths to save transaction data entered by user
+    [delegate setPaths:NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)];
     [delegate setDocumentsDirectoryPath:[[delegate paths] objectAtIndex:0]];
     [delegate setFilePath:[[delegate documentsDirectoryPath] stringByAppendingPathComponent:@"CashData"]];
     
-    UITapGestureRecognizer *tapToDismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    UITapGestureRecognizer *tapToDismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     [[self view] addGestureRecognizer:tapToDismiss];
     
     // Check if app has run once
@@ -40,8 +40,7 @@
     if ([defaults boolForKey:hasAppRunOnceKey] == NO) {
         [defaults setBool:YES forKey:hasAppRunOnceKey];
     }
-    
-
+            
     [monthlyData loadDataFromStorage];
     
     [self displayCurrentDate];
@@ -56,36 +55,43 @@
     // Dispose of any resources that can be recreated.
 }
 
-// Display Current Month in Navigation Bar.
+// Display currentMonth in Navigation Bar.
 -(void)displayCurrentDate {
     MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
     [dateFormatter setDateFormat:@"MMMM"];
     [monthlyData setCurrentMonth:[dateFormatter stringFromDate:[NSDate date]]];
+//    [monthlyData setCurrentMonth:@"October"]; --for testing purposes
     self.navigationItem.title = [monthlyData currentMonth];
 }
 
-// Display Last Month's and This Month's spending totals
+// Display lastMonthTotal and thisMonthTotal on View
 -(void)displayTotals {
     MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-    [numberFormatter setPositiveFormat:@"###0.##"];
     
-    NSString *formattedLastMonthString = [numberFormatter stringFromNumber:[monthlyData lastMonthTotal]];
-    float formattedLastMonth = [formattedLastMonthString floatValue];
-    _lblLastMonthTotal.text = [NSString stringWithFormat:@"%.2f", formattedLastMonth];
+    [numberFormatter setPositiveFormat:@"#####.##"];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setLocale:[NSLocale currentLocale]];
+    [numberFormatter setMinimumFractionDigits:2];
+    [numberFormatter setMaximumFractionDigits:2];
+    [numberFormatter setGroupingSeparator:[[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator]];
+    [numberFormatter setUsesGroupingSeparator:YES];
     
-    NSString *formattedCurrentMonthString = [numberFormatter stringFromNumber:[monthlyData currentMonthTotal]];
-    float formattedCurrentMonth = [formattedCurrentMonthString floatValue];
-    _lblThisMonthTotal.text = [NSString stringWithFormat:@"%.2f", formattedCurrentMonth];
+    float lastMonthTotal = [[monthlyData lastMonthTotal] floatValue];
+    NSString *formattedLastMonthString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:lastMonthTotal]];
+    _lblLastMonthTotal.text = formattedLastMonthString;
+    
+    float currentMonthTotal = [[monthlyData currentMonthTotal] floatValue];
+    NSString *formattedCurrentMonthString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentMonthTotal]];
+    _lblThisMonthTotal.text = formattedCurrentMonthString;
 }
 
 - (IBAction)btnEnterTransaction:(UIButton *)sender {
     _txtDescription.hidden = NO;
     _txtCost.hidden = NO;
     _lblErrorMsg.text = @"";
-    _lblDollarSign.hidden = NO;
     _lblCostFormat.hidden = NO;
     
     UIButton *cancel = (UIButton *)[[self view] viewWithTag:10];
@@ -104,7 +110,6 @@
     _txtCost.text = @"";
     _txtCost.hidden = YES;
     _lblErrorMsg.text = @"";
-    _lblDollarSign.hidden = YES;
     _lblCostFormat.hidden = YES;
     
     UIButton *cancel = (UIButton *)[[self view] viewWithTag:10];
@@ -128,27 +133,38 @@
 
         [_transaction setPurchase:_txtDescription.text];
     
-        // Convert the Cost entered to an NSNumber so you can use NSNumberFormatter
+        // Convert the Cost entered to an NSNumber so you can use NSNumberFormatter's setPositiveFormat
         NSNumber *costEntered = @([_txtCost.text floatValue]);
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        [numberFormatter setPositiveFormat:@"###0.##"];
+        [numberFormatter setPositiveFormat:@"#####.##"];
         NSString *formattedNumberString = [numberFormatter stringFromNumber:costEntered];
         
-        // Convert the formatted String to NSNumber type for storage
+        // Convert the formatted String to the NSNumber type before saving
         NSNumber *formattedCost = @([formattedNumberString floatValue]);
         [_transaction setCost:formattedCost];
     
         // Save the custom object data into a mutable array
         [[monthlyData arrayOfTransactions] addObject:_transaction];
     
-        // Get Cost and add to CurrentMonthTotal
+        // Get Cost entered and add to CurrentMonthTotal
         float transactionCost = [_txtCost.text floatValue];
         float currentTotal = [[monthlyData currentMonthTotal] floatValue];
-        
         currentTotal += transactionCost;
-        _lblThisMonthTotal.text = [NSString stringWithFormat:@"%.2f", currentTotal];
-
+        
         [monthlyData setCurrentMonthTotal:@(currentTotal)];
+        
+        // Format currentTotal to display on View
+        [numberFormatter setPositiveFormat:@"#####.##"];
+        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [numberFormatter setLocale:[NSLocale currentLocale]];
+        [numberFormatter setMinimumFractionDigits:2];
+        [numberFormatter setMaximumFractionDigits:2];
+        [numberFormatter setGroupingSeparator:[[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator]];
+        [numberFormatter setUsesGroupingSeparator:YES];
+        
+        formattedNumberString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentTotal]];
+        
+        _lblThisMonthTotal.text = formattedNumberString;
         
         // Reset data entry fields after each successful Save
         _txtDescription.text = @"";
@@ -156,7 +172,7 @@
     }
 }
 
-// Check to make sure the user entered a value in the Purchase field
+// Check to make sure the user entered a value in the Description field
 // and a valid value in the Cost field
 -(BOOL)performErrorChecking {
     float costEntered = [_txtCost.text floatValue];

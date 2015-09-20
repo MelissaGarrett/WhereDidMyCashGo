@@ -55,8 +55,8 @@
     }
 }
 
-// If new month, reset Last Month's and This Month's spending totals and
-// delete the list of transactions
+// If new month, save currentMonthTotal into lastMonthTotal,
+// reset currentMonthTotal to 0, and delete the list of transactions
 -(void)checkIfNewMonth {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL appHasRun = [defaults boolForKey:@"hasAppRunOnceKey"];
@@ -67,9 +67,9 @@
         _lastMonthTotal = _currentMonthTotal;
         _currentMonthTotal = 0;
         
-        // delete transactions
+        // Delete transactions
+        [_arrayOfTransactions removeAllObjects];
     }
 }
-
 
 @end

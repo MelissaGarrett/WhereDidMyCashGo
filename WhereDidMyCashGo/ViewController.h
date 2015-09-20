@@ -17,8 +17,6 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *txtCost;
 
-@property (strong, nonatomic) IBOutlet UILabel *lblDollarSign;
-
 @property (strong, nonatomic) IBOutlet UILabel *lblCostFormat;
 
 @property (strong, nonatomic) IBOutlet UILabel *lblErrorMsg;
