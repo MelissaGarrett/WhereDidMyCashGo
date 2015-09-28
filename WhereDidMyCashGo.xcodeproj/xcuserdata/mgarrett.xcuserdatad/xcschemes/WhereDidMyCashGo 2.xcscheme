@@ -20,20 +20,6 @@
                ReferencedContainer = "container:WhereDidMyCashGo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "011A9AFA1AF849A400D2C1DA"
-               BuildableName = "WhereDidMyCashGoTests.xctest"
-               BlueprintName = "WhereDidMyCashGoTests"
-               ReferencedContainer = "container:WhereDidMyCashGo.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -42,16 +28,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "011A9AFA1AF849A400D2C1DA"
-               BuildableName = "WhereDidMyCashGoTests.xctest"
-               BlueprintName = "WhereDidMyCashGoTests"
-               ReferencedContainer = "container:WhereDidMyCashGo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

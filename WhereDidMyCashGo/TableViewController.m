@@ -64,10 +64,13 @@
     
     Transaction *aTransaction = (Transaction *)[[monthlyData arrayOfTransactions] objectAtIndex:indexPath.row];
     
+    [[cell purchaseLabel] setFont:[UIFont fontWithName:@"Helvetica" size:14.0]];
+    [[cell purchaseLabel] setAdjustsFontSizeToFitWidth:TRUE];
     [[cell purchaseLabel] setText:[aTransaction purchase]];
     
     float currentMonthTotal = [[aTransaction cost] floatValue];
     NSString *formattedCost = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentMonthTotal]];
+    [[cell costLabel] setFont:[UIFont fontWithName:@"Helvetica" size:14.0]];
     [[cell costLabel] setTextAlignment:NSTextAlignmentRight];
     [[cell costLabel] setText:formattedCost];
 
