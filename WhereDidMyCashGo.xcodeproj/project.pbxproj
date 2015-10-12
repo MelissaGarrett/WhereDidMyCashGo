@@ -16,6 +16,8 @@
 		011A9B021AF849A400D2C1DA /* WhereDidMyCashGoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 011A9B011AF849A400D2C1DA /* WhereDidMyCashGoTests.m */; };
 		012AE38E1B9F546300EF88CB /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012AE38D1B9F546300EF88CB /* TableViewController.m */; };
 		012AE3911BA4856D00EF88CB /* MonthlyDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 012AE3901BA4856D00EF88CB /* MonthlyDataManager.m */; };
+		012D201A1BC314A9000BD4BC /* CashLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012D20191BC314A9000BD4BC /* CashLaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
+		012D201C1BCAE520000BD4BC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 012D201B1BCAE520000BD4BC /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
 		01A4C76B1BA608C3009AFF4E /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4C76A1BA608C3009AFF4E /* TransactionCell.m */; };
 		01CD1C7E1B0132F2001BC39D /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CD1C7D1B0132F2001BC39D /* Transaction.m */; };
 /* End PBXBuildFile section */
@@ -48,6 +50,8 @@
 		012AE38D1B9F546300EF88CB /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		012AE38F1BA4856D00EF88CB /* MonthlyDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthlyDataManager.h; sourceTree = "<group>"; };
 		012AE3901BA4856D00EF88CB /* MonthlyDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthlyDataManager.m; sourceTree = "<group>"; };
+		012D20191BC314A9000BD4BC /* CashLaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CashLaunchScreen.storyboard; sourceTree = "<group>"; };
+		012D201B1BCAE520000BD4BC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		01A4C7691BA608C3009AFF4E /* TransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCell.h; sourceTree = "<group>"; };
 		01A4C76A1BA608C3009AFF4E /* TransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCell.m; sourceTree = "<group>"; };
 		01CD1C7C1B0132F2001BC39D /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
@@ -107,7 +111,9 @@
 				01CD1C7D1B0132F2001BC39D /* Transaction.m */,
 				011A9AEF1AF849A400D2C1DA /* Main.storyboard */,
 				011A9AF21AF849A400D2C1DA /* Images.xcassets */,
+				012D201B1BCAE520000BD4BC /* Media.xcassets */,
 				011A9AF41AF849A400D2C1DA /* LaunchScreen.xib */,
+				012D20191BC314A9000BD4BC /* CashLaunchScreen.storyboard */,
 				011A9AE51AF849A400D2C1DA /* Supporting Files */,
 			);
 			path = WhereDidMyCashGo;
@@ -219,6 +225,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				012D201C1BCAE520000BD4BC /* Media.xcassets in Resources */,
+				012D201A1BC314A9000BD4BC /* CashLaunchScreen.storyboard in Resources */,
 				011A9AF11AF849A400D2C1DA /* Main.storyboard in Resources */,
 				011A9AF61AF849A400D2C1DA /* LaunchScreen.xib in Resources */,
 				011A9AF31AF849A400D2C1DA /* Images.xcassets in Resources */,
