@@ -16,8 +16,8 @@
 		011A9B021AF849A400D2C1DA /* WhereDidMyCashGoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 011A9B011AF849A400D2C1DA /* WhereDidMyCashGoTests.m */; };
 		012AE38E1B9F546300EF88CB /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012AE38D1B9F546300EF88CB /* TableViewController.m */; };
 		012AE3911BA4856D00EF88CB /* MonthlyDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 012AE3901BA4856D00EF88CB /* MonthlyDataManager.m */; };
-		012D201A1BC314A9000BD4BC /* CashLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012D20191BC314A9000BD4BC /* CashLaunchScreen.storyboard */; settings = {ASSET_TAGS = (); }; };
-		012D201C1BCAE520000BD4BC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 012D201B1BCAE520000BD4BC /* Media.xcassets */; settings = {ASSET_TAGS = (); }; };
+		012D201A1BC314A9000BD4BC /* CashLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012D20191BC314A9000BD4BC /* CashLaunchScreen.storyboard */; };
+		012D201C1BCAE520000BD4BC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 012D201B1BCAE520000BD4BC /* Media.xcassets */; };
 		01A4C76B1BA608C3009AFF4E /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4C76A1BA608C3009AFF4E /* TransactionCell.m */; };
 		01CD1C7E1B0132F2001BC39D /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CD1C7D1B0132F2001BC39D /* Transaction.m */; };
 /* End PBXBuildFile section */
@@ -194,6 +194,7 @@
 				TargetAttributes = {
 					011A9AE11AF849A400D2C1DA = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = DG4WJC99E5;
 					};
 					011A9AFA1AF849A400D2C1DA = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -380,7 +381,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WhereDidMyCashGo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MelissaGarrett.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -391,7 +394,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WhereDidMyCashGo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.MelissaGarrett.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

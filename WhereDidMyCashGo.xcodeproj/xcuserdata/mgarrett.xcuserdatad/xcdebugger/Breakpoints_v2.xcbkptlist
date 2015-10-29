@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhereDidMyCashGo/ViewController.m"
-            timestampString = "467056915.867524"
+            timestampString = "467765911.66279"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "-btnEnterTransaction:"
             landmarkType = "5">
          </BreakpointContent>

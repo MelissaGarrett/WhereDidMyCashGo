@@ -62,7 +62,6 @@
     
     [dateFormatter setDateFormat:@"MMMM"];
     [monthlyData setCurrentMonth:[dateFormatter stringFromDate:[NSDate date]]];
-//    [monthlyData setCurrentMonth:@"October"]; --for testing purposes
     self.navigationItem.title = [monthlyData currentMonth];
 }
 
