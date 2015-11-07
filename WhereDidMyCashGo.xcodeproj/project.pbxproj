@@ -14,6 +14,11 @@
 		011A9AF31AF849A400D2C1DA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 011A9AF21AF849A400D2C1DA /* Images.xcassets */; };
 		011A9AF61AF849A400D2C1DA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 011A9AF41AF849A400D2C1DA /* LaunchScreen.xib */; };
 		011A9B021AF849A400D2C1DA /* WhereDidMyCashGoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 011A9B011AF849A400D2C1DA /* WhereDidMyCashGoTests.m */; };
+		012AE38E1B9F546300EF88CB /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 012AE38D1B9F546300EF88CB /* TableViewController.m */; };
+		012AE3911BA4856D00EF88CB /* MonthlyDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 012AE3901BA4856D00EF88CB /* MonthlyDataManager.m */; };
+		012D201A1BC314A9000BD4BC /* CashLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012D20191BC314A9000BD4BC /* CashLaunchScreen.storyboard */; };
+		012D201C1BCAE520000BD4BC /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 012D201B1BCAE520000BD4BC /* Media.xcassets */; };
+		01A4C76B1BA608C3009AFF4E /* TransactionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4C76A1BA608C3009AFF4E /* TransactionCell.m */; };
 		01CD1C7E1B0132F2001BC39D /* Transaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CD1C7D1B0132F2001BC39D /* Transaction.m */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +46,14 @@
 		011A9AFB1AF849A400D2C1DA /* WhereDidMyCashGoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhereDidMyCashGoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		011A9B001AF849A400D2C1DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		011A9B011AF849A400D2C1DA /* WhereDidMyCashGoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WhereDidMyCashGoTests.m; sourceTree = "<group>"; };
+		012AE38C1B9F546300EF88CB /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		012AE38D1B9F546300EF88CB /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		012AE38F1BA4856D00EF88CB /* MonthlyDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthlyDataManager.h; sourceTree = "<group>"; };
+		012AE3901BA4856D00EF88CB /* MonthlyDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthlyDataManager.m; sourceTree = "<group>"; };
+		012D20191BC314A9000BD4BC /* CashLaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CashLaunchScreen.storyboard; sourceTree = "<group>"; };
+		012D201B1BCAE520000BD4BC /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		01A4C7691BA608C3009AFF4E /* TransactionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransactionCell.h; sourceTree = "<group>"; };
+		01A4C76A1BA608C3009AFF4E /* TransactionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransactionCell.m; sourceTree = "<group>"; };
 		01CD1C7C1B0132F2001BC39D /* Transaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transaction.h; sourceTree = "<group>"; };
 		01CD1C7D1B0132F2001BC39D /* Transaction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Transaction.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,13 +99,21 @@
 			children = (
 				011A9AE91AF849A400D2C1DA /* AppDelegate.h */,
 				011A9AEA1AF849A400D2C1DA /* AppDelegate.m */,
+				012AE38F1BA4856D00EF88CB /* MonthlyDataManager.h */,
+				012AE3901BA4856D00EF88CB /* MonthlyDataManager.m */,
 				011A9AEC1AF849A400D2C1DA /* ViewController.h */,
 				011A9AED1AF849A400D2C1DA /* ViewController.m */,
+				012AE38C1B9F546300EF88CB /* TableViewController.h */,
+				012AE38D1B9F546300EF88CB /* TableViewController.m */,
+				01A4C7691BA608C3009AFF4E /* TransactionCell.h */,
+				01A4C76A1BA608C3009AFF4E /* TransactionCell.m */,
 				01CD1C7C1B0132F2001BC39D /* Transaction.h */,
 				01CD1C7D1B0132F2001BC39D /* Transaction.m */,
 				011A9AEF1AF849A400D2C1DA /* Main.storyboard */,
 				011A9AF21AF849A400D2C1DA /* Images.xcassets */,
+				012D201B1BCAE520000BD4BC /* Media.xcassets */,
 				011A9AF41AF849A400D2C1DA /* LaunchScreen.xib */,
+				012D20191BC314A9000BD4BC /* CashLaunchScreen.storyboard */,
 				011A9AE51AF849A400D2C1DA /* Supporting Files */,
 			);
 			path = WhereDidMyCashGo;
@@ -168,11 +189,12 @@
 		011A9ADA1AF849A400D2C1DA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = MelissaGarrett;
 				TargetAttributes = {
 					011A9AE11AF849A400D2C1DA = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = DG4WJC99E5;
 					};
 					011A9AFA1AF849A400D2C1DA = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -204,6 +226,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				012D201C1BCAE520000BD4BC /* Media.xcassets in Resources */,
+				012D201A1BC314A9000BD4BC /* CashLaunchScreen.storyboard in Resources */,
 				011A9AF11AF849A400D2C1DA /* Main.storyboard in Resources */,
 				011A9AF61AF849A400D2C1DA /* LaunchScreen.xib in Resources */,
 				011A9AF31AF849A400D2C1DA /* Images.xcassets in Resources */,
@@ -227,7 +251,10 @@
 				011A9AEE1AF849A400D2C1DA /* ViewController.m in Sources */,
 				011A9AEB1AF849A400D2C1DA /* AppDelegate.m in Sources */,
 				01CD1C7E1B0132F2001BC39D /* Transaction.m in Sources */,
+				01A4C76B1BA608C3009AFF4E /* TransactionCell.m in Sources */,
+				012AE38E1B9F546300EF88CB /* TableViewController.m in Sources */,
 				011A9AE81AF849A400D2C1DA /* main.m in Sources */,
+				012AE3911BA4856D00EF88CB /* MonthlyDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,6 +317,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -353,8 +381,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WhereDidMyCashGo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.MelissaGarrett.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -363,8 +394,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = WhereDidMyCashGo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.MelissaGarrett.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -383,6 +417,7 @@
 				);
 				INFOPLIST_FILE = WhereDidMyCashGoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.MelissaGarrett.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhereDidMyCashGo.app/WhereDidMyCashGo";
 			};
@@ -398,6 +433,7 @@
 				);
 				INFOPLIST_FILE = WhereDidMyCashGoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.MelissaGarrett.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhereDidMyCashGo.app/WhereDidMyCashGo";
 			};

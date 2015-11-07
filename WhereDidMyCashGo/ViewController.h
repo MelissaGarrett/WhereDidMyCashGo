@@ -7,16 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Transaction.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate, UITableViewDataSource>
+@interface ViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *lblMonthName;
 
 @property (strong, nonatomic) IBOutlet UITextField *txtDescription;
 
 @property (strong, nonatomic) IBOutlet UITextField *txtCost;
-
-@property (strong, nonatomic) IBOutlet UILabel *lblDollarSign;
 
 @property (strong, nonatomic) IBOutlet UILabel *lblCostFormat;
 
@@ -26,13 +25,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *lblThisMonthTotal;
 
-@property (strong, nonatomic) NSMutableArray *arrayOfTransactions;
-
-@property (strong, nonatomic) NSArray *paths;
-
-@property (strong, nonatomic) NSString *documentsDirectoryPath;
-
-@property (strong, nonatomic) NSString *filePath;
+@property (strong, nonatomic) Transaction *transaction;
 
 - (IBAction)btnEnterTransaction:(UIButton *)sender;
 - (IBAction)btnViewTransaction:(UIButton *)sender;

@@ -13,5 +13,11 @@
 @property (strong, nonatomic) UIWindow *window;
 
 
+@property (strong, nonatomic) NSArray *paths;
+
+@property (strong, nonatomic) NSString *documentsDirectoryPath;
+
+@property (strong, nonatomic) NSString *filePath;
+
 @end
 

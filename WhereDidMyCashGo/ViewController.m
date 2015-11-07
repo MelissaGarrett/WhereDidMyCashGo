@@ -7,7 +7,8 @@
 //
 
 #import "ViewController.h"
-#import "Transaction.h"
+#import "AppDelegate.h"
+#import "MonthlyDataManager.h"
 
 @interface ViewController ()
 
@@ -19,19 +20,34 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    // Setup the paths to store data entered by user
-    self.paths = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
-    self.documentsDirectoryPath = [self.paths objectAtIndex:0];
-    self.filePath = [self.documentsDirectoryPath stringByAppendingPathComponent:@"CashData"];
+    AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
-    [self loadTransactionData];
+    // Access data in Singleton (MonthlyDataManager)
+    MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
+    
+    // Setup the paths to save transaction data entered by user
+    [delegate setPaths:NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)];
+    [delegate setDocumentsDirectoryPath:[[delegate paths] objectAtIndex:0]];
+    [delegate setFilePath:[[delegate documentsDirectoryPath] stringByAppendingPathComponent:@"CashData"]];
     
     UITapGestureRecognizer *tapToDismiss = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
-    [self.view addGestureRecognizer:tapToDismiss];
+    [[self view] addGestureRecognizer:tapToDismiss];
     
-    [self getCurrentDate];
+    // Check if app has run once
+    static NSString * const hasAppRunOnceKey = @"hasAppRunOnceKey";
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [self getTotals];
+    if ([defaults boolForKey:hasAppRunOnceKey] == NO) {
+        [defaults setBool:YES forKey:hasAppRunOnceKey];
+    }
+            
+    [monthlyData loadDataFromStorage];
+    
+    [self displayCurrentDate];
+    
+    [monthlyData checkIfNewMonth];
+    
+    [self displayTotals];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,108 +55,131 @@
     // Dispose of any resources that can be recreated.
 }
 
-// Retrieve the transactions in permanent storage from the current month
--(void)loadTransactionData {
-    if ([[NSFileManager defaultManager] fileExistsAtPath:self.filePath])
-    {
-        self.arrayOfTransactions = [[NSKeyedUnarchiver unarchiveObjectWithFile:self.filePath] mutableCopy];
-    }
-    
-    // populate TableView (displayed when user taps the View Transactions button)...
-    
-}
-
-// Get current date to display current month in Navigation Bar.
-// Also, use it to check for a new month, and if so, save the current month's
-// spending total as the previous month's total, and reset the current month's
-// total to 0.
--(void)getCurrentDate {
+// Display currentMonth in Navigation Bar.
+-(void)displayCurrentDate {
+    MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     
     [dateFormatter setDateFormat:@"MMMM"];
-    NSString *currentMonth = [dateFormatter stringFromDate:[NSDate date]];
+    [monthlyData setCurrentMonth:[dateFormatter stringFromDate:[NSDate date]]];
+    self.navigationItem.title = [monthlyData currentMonth];
+}
+
+// Display lastMonthTotal and thisMonthTotal on View
+-(void)displayTotals {
+    MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     
-    // compare to last active month to see if need to reset total
+    [numberFormatter setPositiveFormat:@"#####.##"];
+    [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+    [numberFormatter setLocale:[NSLocale currentLocale]];
+    [numberFormatter setMinimumFractionDigits:2];
+    [numberFormatter setMaximumFractionDigits:2];
+    [numberFormatter setGroupingSeparator:[[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator]];
+    [numberFormatter setUsesGroupingSeparator:YES];
     
+    float lastMonthTotal = [[monthlyData lastMonthTotal] floatValue];
+    NSString *formattedLastMonthString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:lastMonthTotal]];
+    _lblLastMonthTotal.text = formattedLastMonthString;
     
-    self.navigationItem.title = currentMonth;
+    float currentMonthTotal = [[monthlyData currentMonthTotal] floatValue];
+    NSString *formattedCurrentMonthString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentMonthTotal]];
+    _lblThisMonthTotal.text = formattedCurrentMonthString;
 }
 
 - (IBAction)btnEnterTransaction:(UIButton *)sender {
-    self.txtDescription.hidden = NO;
-    self.txtCost.hidden = NO;
-    self.lblErrorMsg.text = @"";
-    self.lblDollarSign.hidden = NO;
-    self.lblCostFormat.hidden = NO;
+    _txtDescription.hidden = NO;
+    _txtCost.hidden = NO;
+    _lblErrorMsg.text = @"";
+    _lblCostFormat.hidden = NO;
     
-    UIButton *cancel = (UIButton *)[self.view viewWithTag:10];
+    UIButton *cancel = (UIButton *)[[self view] viewWithTag:10];
     [cancel setHidden:NO];
     
-    UIButton *save = (UIButton *)[self.view viewWithTag:11];
+    UIButton *save = (UIButton *)[[self view] viewWithTag:11];
     [save setHidden:NO];
 }
 
 - (IBAction)btnViewTransaction:(UIButton *)sender {
-    
 }
 
 - (IBAction)btnCancel:(UIButton *)sender {
-    self.txtDescription.text = @"";
-    self.txtDescription.hidden = YES;
-    self.txtCost.text = @"";
-    self.txtCost.hidden = YES;
-    self.lblErrorMsg.text = @"";
-    self.lblDollarSign.hidden = YES;
-    self.lblCostFormat.hidden = YES;
+    _txtDescription.text = @"";
+    _txtDescription.hidden = YES;
+    _txtCost.text = @"";
+    _txtCost.hidden = YES;
+    _lblErrorMsg.text = @"";
+    _lblCostFormat.hidden = YES;
     
-    UIButton *cancel = (UIButton *)[self.view viewWithTag:10];
+    UIButton *cancel = (UIButton *)[[self view] viewWithTag:10];
     [cancel setHidden:YES];
     
-    UIButton *save = (UIButton *)[self.view viewWithTag:11];
+    UIButton *save = (UIButton *)[[self view] viewWithTag:11];
     [save setHidden:YES];
 }
 
 - (IBAction)btnSave:(UIButton *)sender {
+    MonthlyDataManager *monthlyData = [MonthlyDataManager sharedManager];
+    
     // Need these to lose focus each time Save is tapped
     // because the Error Message doesn't always clear if one of them has focus
-    [self.txtDescription resignFirstResponder];
-    [self.txtCost resignFirstResponder];
+    [_txtDescription resignFirstResponder];
+    [_txtCost resignFirstResponder];
     
     if ([self performErrorChecking] == YES) // Have good user input
     {
-        Transaction *eachTransaction = [[Transaction alloc] init];
+        _transaction = [[Transaction alloc] init];
 
-        [eachTransaction setPurchase:self.txtDescription.text];
+        [_transaction setPurchase:_txtDescription.text];
     
-        float costEntered = [self.txtCost.text floatValue];
-        [eachTransaction setCost:[NSNumber numberWithFloat:costEntered]];
+        // Convert the Cost entered to an NSNumber so you can use NSNumberFormatter's setPositiveFormat
+        NSNumber *costEntered = @([_txtCost.text floatValue]);
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setPositiveFormat:@"#####.##"];
+        NSString *formattedNumberString = [numberFormatter stringFromNumber:costEntered];
+        
+        // Convert the formatted String to the NSNumber type before saving
+        NSNumber *formattedCost = @([formattedNumberString floatValue]);
+        [_transaction setCost:formattedCost];
     
         // Save the custom object data into a mutable array
-        [self.arrayOfTransactions addObject:eachTransaction];
+        [[monthlyData arrayOfTransactions] addObject:_transaction];
     
-        // Save the array data into permanent storage
-        [NSKeyedArchiver archiveRootObject:self.arrayOfTransactions toFile:self.filePath];
-    
-        // update TableView with new transaction, but don't display
-    
-    
-        // Update this month's total on Interface
-        float thisMonth = [self.lblThisMonthTotal.text floatValue];
-        thisMonth += [self.txtCost.text floatValue];
-        self.lblThisMonthTotal.text = [NSString stringWithFormat:@"%.2f", thisMonth];
-    
+        // Get Cost entered and add to CurrentMonthTotal
+        float transactionCost = [_txtCost.text floatValue];
+        float currentTotal = [[monthlyData currentMonthTotal] floatValue];
+        currentTotal += transactionCost;
+        
+        [monthlyData setCurrentMonthTotal:@(currentTotal)];
+        
+        // Format currentTotal to display on View
+        [numberFormatter setPositiveFormat:@"#####.##"];
+        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [numberFormatter setLocale:[NSLocale currentLocale]];
+        [numberFormatter setMinimumFractionDigits:2];
+        [numberFormatter setMaximumFractionDigits:2];
+        [numberFormatter setGroupingSeparator:[[NSLocale currentLocale] objectForKey:NSLocaleGroupingSeparator]];
+        [numberFormatter setUsesGroupingSeparator:YES];
+        
+        formattedNumberString = [numberFormatter stringFromNumber:[NSNumber numberWithFloat:currentTotal]];
+        
+        _lblThisMonthTotal.text = formattedNumberString;
+        
         // Reset data entry fields after each successful Save
-        self.txtDescription.text = @"";
-        self.txtCost.text = @"";
+        _txtDescription.text = @"";
+        _txtCost.text = @"";
     }
 }
 
-// Check to make sure the user entered a value in the Purchase field
+// Check to make sure the user entered a value in the Description field
 // and a valid value in the Cost field
 -(BOOL)performErrorChecking {
-    if ([self.txtDescription.text length] == 0)
+    float costEntered = [_txtCost.text floatValue];
+    
+    if ([_txtDescription.text length] == 0 ||
+        (costEntered <= 0.00))
     {
-        self.lblErrorMsg.text = @"Please enter a purchase.";
+        _lblErrorMsg.text = @"Please enter both a purchase and valid cost.";
         return NO;
     }
     return YES;
@@ -155,13 +194,13 @@
 
 // Dismiss the keyboard when user taps in the background
 -(void)dismissKeyboard:(id)sender {
-    [self.txtDescription resignFirstResponder];
+    [_txtDescription resignFirstResponder];
     
-    [self.txtCost resignFirstResponder];
+    [_txtCost resignFirstResponder];
 }
 
 // Check user input:
-// Description must be <=20 characters,
+// Description must be <=20 characters;
 // Cost must be a numeric value
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (textField.tag == 20) // Description field
@@ -170,48 +209,38 @@
 
         return !([newString length] > 20);
     }
-    else if (textField.tag == 21) // Cost field
+    
+    if (textField.tag == 21) // Cost field
     {
+        // User can use the backspace key
+        if ([string isEqualToString:@""])
+            return YES;
+        
+        // User can only enter numbers and one decimal
         NSCharacterSet *newCharSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
+        
         for (int i = 0; i < [string length]; i++)
         {
             unichar c = [string characterAtIndex:i];
             if ([newCharSet characterIsMember:c])
             {
-                return YES;
+                NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
+                NSArray *decimals = [newString componentsSeparatedByString:@"."];
+                return !([decimals count] > 2);
             }
         }
         return NO;
     }
     else
-        return YES;
+        return NO;
 }
 
 // Clear the Error Message when user begins entering data in text fields
 -(void)textFieldDidBeginEditing:(UITextField *)textField {
     if (textField.tag == 20 || textField.tag == 21)
     {
-        self.lblErrorMsg.text = @"";
-        
+        _lblErrorMsg.text = @"";
     }
 }
-
-// Display Last Month's and This Month's spending totals
--(void)getTotals {
-    // set these as the greater of what's in storage or 0.00
-    float lastMonthTotal = 0.00;
-    float thisMonthTotal = 0.00;
-    
-    self.lblLastMonthTotal.text = [NSString stringWithFormat:@"%.2f", lastMonthTotal];
-    self.lblThisMonthTotal.text = [NSString stringWithFormat:@"%.2f", thisMonthTotal];
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.arrayOfTransactions.count;
-}
-
-//-(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-//}
 
 @end
